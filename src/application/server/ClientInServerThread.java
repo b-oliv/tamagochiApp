@@ -70,7 +70,7 @@ public class ClientInServerThread implements Runnable {
 
 	private void checkEat() throws IOException {
 		if (secondsToEat == 10) {
-			server.sendToClients("FAIM", this);
+			server.sendToClients(SATIETY.FAIM.name(), this);
 		} else if (secondsToEat == 20) {
 			server.sendToClients("DEAD", this);
 		}
@@ -78,7 +78,7 @@ public class ClientInServerThread implements Runnable {
 
 	private void checkPlay() throws IOException {
 		if (secondsToPlay == 15) {
-			server.sendToClients("ENNUIE", this);
+			server.sendToClients(EMOTION.TRISTE.name(), this);
 		} else if (secondsToPlay == 50) {
 			server.sendToClients("DEAD", this);
 		}
