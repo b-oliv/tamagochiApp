@@ -39,11 +39,11 @@ public class ClientInServerThread implements Runnable {
 				if (inStream.ready()) {
 					String clientSend = inStream.readLine();
 					System.err.println(clientSend);
-					if (clientSend.contains("MANGE")) {
+					if (clientSend.contains(SATIETY.REPU.name())) {
 						tamagochi.setSatiety(SATIETY.REPU);
 						server.sendToClients(tamagochi.getSatiety() + "", this);
 						secondsToEat = 0;
-					} else if (clientSend.contains("PLAY")) {
+					} else if (clientSend.contains(EMOTION.CONTENT.name())) {
 						tamagochi.setEmotion(EMOTION.CONTENT);
 						server.sendToClients(tamagochi.getEmotion() + "", this);
 						secondsToPlay = 0;

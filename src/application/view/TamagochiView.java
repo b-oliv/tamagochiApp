@@ -1,6 +1,8 @@
 package application.view;
 
 import application.TamagochiApplication;
+import application.model.EMOTION;
+import application.model.SATIETY;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -30,11 +32,9 @@ public class TamagochiView extends BaseView {
 	private EventHandler<MouseEvent> onClickFeed = new EventHandler<MouseEvent>() {
 		@Override
 		public void handle(MouseEvent event) {
-			System.err.println(event);
-			String message = "MANGE" + "\n";
-			mainApp.getTamaClient().sendMessage(message);
+			mainApp.getTamaClient().sendMessage(SATIETY.REPU.name() + "\n");
 			locate.setText("Cuisine");
-			satiety.setText("Repu");
+			satiety.setText(SATIETY.REPU.name());
 			event.consume();
 		}
 	};
@@ -42,11 +42,9 @@ public class TamagochiView extends BaseView {
 	private EventHandler<MouseEvent> onClickPlay = new EventHandler<MouseEvent>() {
 		@Override
 		public void handle(MouseEvent event) {
-			System.err.println(event);
-			String message = "PLAY" + "\n";
-			mainApp.getTamaClient().sendMessage(message);
+			mainApp.getTamaClient().sendMessage(EMOTION.CONTENT.name() + "\n");
 			locate.setText("Salon");
-			emotion.setText("Content");
+			emotion.setText(EMOTION.CONTENT.name());
 			event.consume();
 		}
 	};
@@ -73,13 +71,13 @@ public class TamagochiView extends BaseView {
 		String time = "[" + age.getText() + "]-";
 		String name = "<" + mainApp.getUserCfg().getTamagochiname() + ">";
 		if (isAlive.equals(true)) {
-			if (message.contains("FAIM")) {
-				satiety.setText("Faim");
+			if (message.contains(SATIETY.FAIM.name())) {
+				satiety.setText(SATIETY.FAIM.name());
 				logs.appendText(
 						time + name + " a faim !!! Il risque de mourir dans 10 secondes." + System.lineSeparator());
-			} else if (message.contains("ENNUIE")) {
-				emotion.setText("Triste");
-				logs.appendText(time + name + " s'ennuir !!! Tu peux jouer avec lui ?!" + System.lineSeparator());
+			} else if (message.contains(EMOTION.TRISTE.name())) {
+				emotion.setText(EMOTION.TRISTE.name());
+				logs.appendText(time + name + " s'ennuit !!! Tu peux jouer avec lui ?!" + System.lineSeparator());
 			} else if (message.contains("DEAD")) {
 				satiety.setText("-");
 				emotion.setText("-");
