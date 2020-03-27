@@ -71,20 +71,22 @@ public class TamagochiView extends BaseView {
 		String time = "[" + age.getText() + "]-";
 		String name = "<" + mainApp.getUserCfg().getTamagochiname() + ">";
 		if (isAlive.equals(true)) {
-			if (message.contains(SATIETY.FAIM.name())) {
+			if (message.equals(SATIETY.FAIM.name())) {
 				satiety.setText(SATIETY.FAIM.name());
 				logs.appendText(
 						time + name + " a faim !!! Il risque de mourir dans 10 secondes." + System.lineSeparator());
-			} else if (message.contains(EMOTION.TRISTE.name())) {
+			} else if (message.equals(EMOTION.TRISTE.name())) {
 				emotion.setText(EMOTION.TRISTE.name());
 				logs.appendText(time + name + " s'ennuit !!! Tu peux jouer avec lui ?!" + System.lineSeparator());
-			} else if (message.contains("DEAD")) {
+			} else if (message.contains("DEAD FAIM") || message.contains("DEAD TRISTE")) {
 				satiety.setText("-");
 				emotion.setText("-");
 				feed.setVisible(false);
 				play.setVisible(false);
 				isAlive = false;
-				logs.appendText(time + name + " est mort!!!" + System.lineSeparator());
+				String rootCause = (message.contains("DEAD FAIM")) ? " est mort de faim, c'est ignoble "
+						: " est mort d'ennui, pas de netflix ?";
+				logs.appendText(time + name + rootCause + System.lineSeparator());
 				mainApp.getTamaClient().sendMessage("DEAD" + "\n");
 			} else {
 				logs.appendText(age.getText() + "" + name + "" + message + System.lineSeparator());

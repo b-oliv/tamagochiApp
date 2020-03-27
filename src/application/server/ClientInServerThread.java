@@ -72,7 +72,7 @@ public class ClientInServerThread implements Runnable {
 		if (secondsToEat == 10) {
 			server.sendToClients(SATIETY.FAIM.name(), this);
 		} else if (secondsToEat == 20) {
-			server.sendToClients("DEAD", this);
+			server.sendToClients("DEAD " + SATIETY.FAIM.name(), this);
 		}
 	}
 
@@ -80,7 +80,7 @@ public class ClientInServerThread implements Runnable {
 		if (secondsToPlay == 15) {
 			server.sendToClients(EMOTION.TRISTE.name(), this);
 		} else if (secondsToPlay == 50) {
-			server.sendToClients("DEAD", this);
+			server.sendToClients("DEAD " + EMOTION.TRISTE.name(), this);
 		}
 	}
 
