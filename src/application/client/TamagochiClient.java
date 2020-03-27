@@ -29,6 +29,7 @@ public class TamagochiClient {
 		BufferedReader inStream = new BufferedReader(new InputStreamReader(clientSocket.getInputStream(), "UTF-8"));
 		clientThread = new ClientThread(this, outStream, inStream);
 		Thread thread = new Thread(clientThread);
+		this.sendMessage(mainApp.getUserCfg().getTamagochiname() + "\n"); // send name tama to server for pooj
 		thread.start();
 	}
 

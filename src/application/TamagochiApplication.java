@@ -69,6 +69,8 @@ public class TamagochiApplication extends Application {
 	}
 
 	public Tamagochi getTamagochi() {
+		if (this.tamagochi == null)
+			this.tamagochi = new Tamagochi();
 		return tamagochi;
 	}
 

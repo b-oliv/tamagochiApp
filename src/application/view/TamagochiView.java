@@ -87,6 +87,7 @@ public class TamagochiView extends BaseView {
 				play.setVisible(false);
 				isAlive = false;
 				logs.appendText(time + name + " est mort!!!" + System.lineSeparator());
+				mainApp.getTamaClient().sendMessage("DEAD" + "\n");
 			} else {
 				logs.appendText(age.getText() + "" + name + "" + message + System.lineSeparator());
 			}

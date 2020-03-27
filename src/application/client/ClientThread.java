@@ -24,7 +24,6 @@ public class ClientThread implements Runnable {
 	@Override
 	public void run() {
 		try {
-
 			while (true) {
 				String message = inStream.readLine();
 				chatClient.getMainApp().appendToLogs(message);

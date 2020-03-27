@@ -6,6 +6,10 @@ import java.io.IOException;
 import java.net.SocketException;
 import java.util.logging.Logger;
 
+import application.model.EMOTION;
+import application.model.SATIETY;
+import application.model.Tamagochi;
+
 public class ClientInServerThread implements Runnable {
 
 	private int seconds = 0;
@@ -14,6 +18,7 @@ public class ClientInServerThread implements Runnable {
 	private BufferedWriter outStream;
 	private BufferedReader inStream;
 	private Server server;
+	private Tamagochi tamagochi;
 
 	final private Logger LOG = Logger.getLogger(ClientInServerThread.class.getName());
 
@@ -21,22 +26,29 @@ public class ClientInServerThread implements Runnable {
 		this.server = server;
 		this.outStream = outStream;
 		this.inStream = inStream;
+		tamagochi = new Tamagochi();
 	}
 
 	@Override
 	public void run() {
 		try {
-
-			while (true) {
+			tamagochi.setName(inStream.readLine());
+			LOG.info("---|||Tamagochi <" + tamagochi.getName() + "> Created|||---");
+			while (tamagochi.isAlive()) {
 				Thread.sleep(1000);
 				if (inStream.ready()) {
 					String clientSend = inStream.readLine();
+					System.err.println(clientSend);
 					if (clientSend.contains("MANGE")) {
-						server.sendToClients("Il a bien mangé", this);
+						tamagochi.setSatiety(SATIETY.REPU);
+						server.sendToClients(tamagochi.getSatiety() + "", this);
 						secondsToEat = 0;
 					} else if (clientSend.contains("PLAY")) {
-						server.sendToClients("Il s'amuse comme un fou !!", this);
+						tamagochi.setEmotion(EMOTION.CONTENT);
+						server.sendToClients(tamagochi.getEmotion() + "", this);
 						secondsToPlay = 0;
+					} else if (clientSend.contains("DEAD")) {
+						tamagochi.setAlive(false);
 					}
 				}
 				server.sendToClients("" + seconds, this);
@@ -49,14 +61,11 @@ public class ClientInServerThread implements Runnable {
 		} catch (SocketException e) {
 			server.removeClient(this);
 			LOG.info("Client was lost.");
-
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 	}
 
 	private void checkEat() throws IOException {
