@@ -3,6 +3,7 @@ package application;
 import java.io.IOException;
 
 import application.client.TamagochiClient;
+import application.model.Tamagochi;
 import application.model.UserConfig;
 import application.view.BaseView;
 import application.view.ConfigView;
@@ -20,6 +21,7 @@ public class TamagochiApplication extends Application {
 	private TamagochiClient tamagochiClient;
 	private ConfigView configView;
 	private TamagochiView tamagochiView;
+	private Tamagochi tamagochi;
 
 	public static void main(String[] args) {
 		launch(args);
@@ -64,6 +66,10 @@ public class TamagochiApplication extends Application {
 
 	public void setUserCfg(UserConfig userCfg) {
 		this.userCfg = userCfg;
+	}
+
+	public Tamagochi getTamagochi() {
+		return tamagochi;
 	}
 
 	public TamagochiClient getTamaClient() {

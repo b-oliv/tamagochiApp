@@ -77,7 +77,7 @@ public class TamagochiView extends BaseView {
 				satiety.setText("Faim");
 				logs.appendText(
 						time + name + " a faim !!! Il risque de mourir dans 10 secondes." + System.lineSeparator());
-			} else if (message.contains("PLAY")) {
+			} else if (message.contains("ENNUIE")) {
 				emotion.setText("Triste");
 				logs.appendText(time + name + " s'ennuir !!! Tu peux jouer avec lui ?!" + System.lineSeparator());
 			} else if (message.contains("DEAD")) {
@@ -87,7 +87,6 @@ public class TamagochiView extends BaseView {
 				play.setVisible(false);
 				isAlive = false;
 				logs.appendText(time + name + " est mort!!!" + System.lineSeparator());
-				Thread.currentThread().interrupt();
 			} else {
 				logs.appendText(age.getText() + "" + name + "" + message + System.lineSeparator());
 			}

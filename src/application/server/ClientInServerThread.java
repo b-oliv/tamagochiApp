@@ -26,6 +26,7 @@ public class ClientInServerThread implements Runnable {
 	@Override
 	public void run() {
 		try {
+
 			while (true) {
 				Thread.sleep(1000);
 				if (inStream.ready()) {
@@ -43,6 +44,7 @@ public class ClientInServerThread implements Runnable {
 				secondsToEat++;
 				secondsToPlay++;
 				this.checkEat();
+				this.checkPlay();
 			}
 		} catch (SocketException e) {
 			server.removeClient(this);
@@ -68,7 +70,7 @@ public class ClientInServerThread implements Runnable {
 	private void checkPlay() throws IOException {
 		if (secondsToPlay == 15) {
 			server.sendToClients("ENNUIE", this);
-		} else if (secondsToEat == 50) {
+		} else if (secondsToPlay == 50) {
 			server.sendToClients("DEAD", this);
 		}
 	}
